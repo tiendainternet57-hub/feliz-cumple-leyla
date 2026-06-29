@@ -15,7 +15,7 @@ body {
   text-align: center;
 }
 
-/* 🎬 inicio */
+/* inicio */
 #start {
   position: fixed;
   width: 100%;
@@ -44,7 +44,7 @@ button {
   padding-top: 40px;
 }
 
-/* 💌 carta */
+/* carta */
 .card {
   margin: auto;
   width: 85%;
@@ -54,19 +54,19 @@ button {
   border-radius: 20px;
   padding: 25px;
   box-shadow: 0 0 25px pink;
+  animation: pulse 4s infinite;
 }
 
-/* 🎂 título */
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.02);}
+  100% {transform: scale(1);}
+}
+
 h1.main {
-  font-size: 40px;
+  font-size: 34px;
   color: #ff4da6;
   text-shadow: 0 0 20px pink;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from { transform: scale(1); text-shadow: 0 0 10px pink; }
-  to { transform: scale(1.05); text-shadow: 0 0 30px hotpink; }
 }
 
 /* ❤️ corazones */
@@ -82,60 +82,86 @@ h1.main {
   100% {transform: translateY(110vh); opacity: 0;}
 }
 
-/* 🌌 fotos 3D */
+/* 🌌 imágenes ultra libres */
 .bg-photo {
   position: fixed;
   width: 140px;
   height: 140px;
   object-fit: cover;
-  border-radius: 20px;
-  opacity: 0.15;
+  border-radius: 25px;
+  opacity: 0.8;
   pointer-events: none;
-  box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
-  animation: float3d 12s infinite ease-in-out;
+  box-shadow: 0 0 25px rgba(255,105,180,0.8);
+  animation: floatGod linear infinite;
 }
 
-@keyframes float3d {
-  0% { transform: translateY(100vh) rotateY(0deg); }
-  50% { transform: translateY(40vh) rotateY(180deg); }
-  100% { transform: translateY(-200px) rotateY(360deg); }
+@keyframes floatGod {
+  0% {transform: translate(var(--x), 110vh) rotate(0deg);}
+  25% {transform: translate(calc(var(--x) + 80px), 70vh) rotate(90deg);}
+  50% {transform: translate(calc(var(--x) - 60px), 40vh) rotate(180deg);}
+  75% {transform: translate(calc(var(--x) + 40px), 10vh) rotate(270deg);}
+  100% {transform: translate(var(--x), -200px) rotate(360deg);}
 }
 
-/* 💖 frases flotantes */
+/* 💬 ventana */
+.message-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 200px;
+  background: rgba(0,0,0,0.8);
+  border: 2px solid pink;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 0 25px pink;
+  overflow-y: auto;
+  display: none;
+  z-index: 20;
+}
+
+/* botón */
+#openMsgBtn {
+  position: fixed;
+  bottom: 230px;
+  right: 20px;
+  z-index: 21;
+}
+
+/* 💖 textos flotantes */
 .floating-text {
   position: absolute;
-  font-size: 16px;
   color: pink;
-  opacity: 0.7;
+  font-size: 14px;
   animation: floatText 10s linear infinite;
 }
 
 @keyframes floatText {
-  0% { transform: translateY(100vh); opacity: 0; }
-  20% { opacity: 1; }
-  100% { transform: translateY(-200px); opacity: 0; }
+  0% {transform: translateY(100vh); opacity: 0;}
+  20% {opacity: 1;}
+  100% {transform: translateY(-200px); opacity: 0;}
 }
 
-/* 📱 MÓVIL */
+/* 🌹 FINAL NAME */
+.final-name {
+  font-size: 50px;
+  color: pink;
+  text-shadow: 0 0 20px hotpink, 0 0 40px pink;
+  display: none;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from {transform: scale(1);}
+  to {transform: scale(1.1);}
+}
+
+/* móvil */
 @media (max-width: 600px) {
-
-  .card {
+  .message-box {
     width: 90%;
-    padding: 18px;
-  }
-
-  h1.main {
-    font-size: 28px;
-  }
-
-  .bg-photo {
-    width: 90px;
-    height: 90px;
-    opacity: 0.12;
-  }
-
-  .floating-text {
-    font-size: 12px;
+    right: 5%;
+    bottom: 10px;
   }
 }
 </style>
@@ -143,59 +169,44 @@ h1.main {
 
 <body>
 
-<!-- 🎵 música -->
 <audio id="music" loop>
   <source src="music.mp3" type="audio/mp3">
 </audio>
 
-<!-- 🎬 inicio -->
+<!-- inicio -->
 <div id="start">
-  <h1>🎂 Hoy es un día especial...</h1>
-  <p>Prepárate ❤️</p>
+  <h1>🎂 Hoy es tu día especial</h1>
   <button onclick="entrar()">Entrar 💖</button>
 </div>
 
-<!-- 💝 contenido -->
+<!-- contenido -->
 <div class="container" id="content">
-
   <div class="card">
-
     <h1 class="main">🎂 Feliz Cumpleaños 💖</h1>
+    <p>Hoy el mundo sonríe porque tú existes ✨</p>
 
-    <p>Hoy el mundo es más bonito porque tú existes ✨</p>
-
-    <button onclick="mostrarCarta()">Abrir sorpresa 💌</button>
-
-    <div id="carta" style="display:none; margin-top:15px;">
-      <h2>💖 Para ti</h2>
-
-      <p>
-        No hay palabras suficientes…<br>
-        pero sí sentimientos infinitos ❤️
-      </p>
-
-      <button onclick="mostrarFinal()">Siguiente 💞</button>
-    </div>
-
-    <div id="final" style="display:none; margin-top:15px;">
-      <h2>💘 Mensaje final</h2>
-      <p>
-        Gracias por ser tú 💖<br>
-        y por existir en mi vida ✨
-      </p>
-    </div>
-
+    <div id="finalName" class="final-name">LEYLA ❤️</div>
   </div>
 </div>
 
-<!-- 🌌 fotos 3D -->
-<img class="bg-photo" src="https://picsum.photos/300/300?random=1" style="left:5%; animation-delay:0s;">
-<img class="bg-photo" src="https://picsum.photos/300/300?random=2" style="left:70%; animation-delay:3s;">
-<img class="bg-photo" src="https://picsum.photos/300/300?random=3" style="left:30%; animation-delay:6s;">
+<!-- botón -->
+<button id="openMsgBtn" onclick="abrirMensaje()">💌 Mensaje</button>
+
+<!-- ventana -->
+<div class="message-box" id="messageBox"></div>
+
+<!-- imágenes (muchas más) -->
+<img class="bg-photo" src="https://picsum.photos/300/300?random=1" style="--x: 5vw; animation-duration: 14s;">
+<img class="bg-photo" src="https://picsum.photos/300/300?random=2" style="--x: 15vw; animation-duration: 18s;">
+<img class="bg-photo" src="https://picsum.photos/300/300?random=3" style="--x: 25vw; animation-duration: 12s;">
+<img class="bg-photo" src="https://picsum.photos/300/300?random=4" style="--x: 35vw; animation-duration: 16s;">
+<img class="bg-photo" src="https://picsum.photos/300/300?random=1" style="--x: 45vw; animation-duration: 20s;">
+<img class="bg-photo" src="https://picsum.photos/300/300?random=2" style="--x: 55vw; animation-duration: 13s;">
+<img class="bg-photo" src="https://picsum.photos/300/300?random=3" style="--x: 65vw; animation-duration: 17s;">
+<img class="bg-photo" src="https://picsum.photos/300/300?random=4" style="--x: 75vw; animation-duration: 15s;">
 
 <script>
 
-// 🎵 entrar
 function entrar() {
   document.getElementById("start").style.display = "none";
   document.getElementById("content").style.display = "block";
@@ -205,51 +216,96 @@ function entrar() {
   music.play().catch(()=>{});
 }
 
-// 💌 carta
-function mostrarCarta() {
-  document.getElementById("carta").style.display = "block";
+/* 💖 MENSAJE FINAL DIOS */
+const mensaje = `💖 Leyla... ✨🌹
+
+Hoy es un día muy especial porque el mundo celebra tu existencia 🎂💫
+
+Quiero que sepas que eres una persona ✨ increíble ✨, única y muy valiosa para mi💕🌷
+No solo por cómo eres por fuera porque sabes que eres muy linda, sino por la forma en la que haces sentir a las personas a tu alrededor en especial a mi ❤️✨
+
+Tu forma de ser ilumina todo sin que te des cuenta 🌟💫
+A veces no imaginas el impacto tan bonito que tienes en los demás… pero es enorme 💖🌹
+
+Gracias por cada momento 💕, por cada sonrisa 😊, por cada palabra 💬 y por todo lo que me dejaste compartir contigo 🌷✨
+Incluso los pequeños detalles contigo se sienten importantes 💖💫
+
+Me alegra mucho haberte conocido 💕 de verdad 🌹
+
+No siempre sé expresar bien lo que siento 😅…
+pero hoy quiero intentarlo mejor 💭💖
+
+Te quiero muchísimo ❤️✨💖  
+y siempre voy a desear lo mejor para ti 🌷💫  
+hoy y siempre 💕✨`;
+
+/* escritura */
+function typeWriter(text, element, speed = 35) {
+  let i = 0;
+  element.innerHTML = "";
+
+  function escribir() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(escribir, speed);
+    } else {
+      explosionFinal();
+    }
+  }
+  escribir();
 }
 
-// 💞 final
-function mostrarFinal() {
-  document.getElementById("final").style.display = "block";
+function abrirMensaje() {
+  const box = document.getElementById("messageBox");
+  box.style.display = "block";
+  typeWriter(mensaje, box, 60);
 }
 
-// ❤️ corazones
+/* 💥 EXPLOSIÓN FINAL */
+function explosionFinal() {
+  for (let i = 0; i < 40; i++) {
+    const heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.style.position = "fixed";
+    heart.style.left = "50%";
+    heart.style.top = "50%";
+    heart.style.fontSize = Math.random() * 20 + 10 + "px";
+    heart.style.color = "pink";
+    heart.style.animation = "fall 2s linear forwards";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2000);
+  }
+
+  document.getElementById("finalName").style.display = "block";
+}
+
+/* corazones */
 function crearCorazon() {
   const heart = document.createElement("div");
   heart.classList.add("heart");
   heart.innerHTML = "❤️";
-
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.animationDuration = (2 + Math.random() * 3) + "s";
-
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 5000);
 }
 setInterval(crearCorazon, 200);
 
-// 💖 frases flotantes
-const frases = [
-  "🎂 Feliz Cumpleaños",
-  "💖 Eres especial",
-  "✨ Te mereces todo",
-  "💘 Gracias por existir",
-  "🌹 Eres única",
-  "💝 Hoy es tu día"
-];
+/* textos */
+const frases = ["💖 Te amo","✨ Eres especial","🌹 Feliz cumpleaños","💘 Mi persona favorita"];
 
-function crearFrase() {
-  const f = document.createElement("div");
-  f.classList.add("floating-text");
-  f.innerHTML = frases[Math.floor(Math.random() * frases.length)];
-
-  f.style.left = Math.random() * 100 + "vw";
-
-  document.body.appendChild(f);
-  setTimeout(() => f.remove(), 10000);
+function crearTexto() {
+  const t = document.createElement("div");
+  t.classList.add("floating-text");
+  t.innerHTML = frases[Math.floor(Math.random()*frases.length)];
+  t.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 10000);
 }
-setInterval(crearFrase, 1500);
+setInterval(crearTexto, 1500);
 
 </script>
 
