@@ -98,18 +98,40 @@ button{
     opacity:0.55;
     filter:blur(0.2px);
 
-    animation:float3D linear infinite;
-
+    animation:float3D 12s ease-in-out infinite;
     z-index:1;
 }
 
 /* ANIMACIÓN FOTOS */
 @keyframes float3D{
-0%{transform:translate(var(--x),110vh) rotate(0deg) scale(0.8);}
-25%{transform:translate(calc(var(--x) + var(--dx)),70vh) rotate(90deg) scale(1);}
-50%{transform:translate(calc(var(--x) - var(--dx)),40vh) rotate(180deg) scale(1.1);}
-75%{transform:translate(calc(var(--x) + calc(var(--dx)/2)),10vh) rotate(270deg) scale(1);}
-100%{transform:translate(var(--x),-150px) rotate(360deg) scale(0.8);}
+
+0%{
+    opacity:0;
+    transform:translateY(120vh) scale(0.3) rotate(0deg);
+}
+
+10%{
+    opacity:1;
+    transform:translate(calc(var(--x)),80vh) scale(1.1) rotate(10deg);
+}
+
+30%{
+    transform:translate(calc(var(--x) + var(--dx)),60vh) scale(1) rotate(90deg);
+}
+
+60%{
+    transform:translate(calc(var(--x) - var(--dx)),30vh) scale(1.1) rotate(180deg);
+}
+
+80%{
+    transform:translate(calc(var(--x) + calc(var(--dx)/2)),10vh) scale(1) rotate(270deg);
+}
+
+100%{
+    opacity:0.85;
+    transform:translate(var(--x),-120px) scale(0.9) rotate(360deg);
+}
+
 }
 
 /* CORAZONES */
@@ -298,7 +320,7 @@ p.className="photo";
 p.src=fotos[Math.floor(Math.random()*fotos.length)];
 p.style.setProperty("--x",Math.random()*90+"vw");
 p.style.setProperty("--dx",(20+Math.random()*80)+"px");
-p.style.animationDuration=(10+Math.random()*10)+"s";
+p.style.animationDuration=(8+Math.random()*6)+'s';
 document.body.appendChild(p);
 }
 
