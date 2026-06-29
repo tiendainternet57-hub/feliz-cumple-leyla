@@ -250,6 +250,8 @@ y siempre voy a desear lo mejor para ti 🌷💫
 hoy y siempre 💕✨
 `;
 
+let escribiendo = false;
+
 function begin(){
 start.style.display='none';
 intro.style.display='flex';
@@ -274,22 +276,38 @@ music.play().catch(()=>{});
 }
 
 function showMsg(){
+
+// ❌ evita doble click
+if(escribiendo) return;
+
+escribiendo = true;
+
 msg.style.display='block';
+msg.innerHTML="";
+
 type(mensaje,msg,55);
 }
 
 function type(t,e,s){
-e.innerHTML="";
-let i=0;
-(function w(){
-if(i<t.length){
-e.innerHTML += (t[i]=="\n"?"<br>":t[i]);
-e.scrollTop=e.scrollHeight;
-i++;
-setTimeout(w,60);
-}else finale();
-})();
+    e.innerHTML="";
+    let i=0;
+
+    function w(){
+        if(i < t.length){
+            e.innerHTML += (t[i] == "\n" ? "<br>" : t[i]);
+            e.scrollTop = e.scrollHeight;
+            i++;
+            setTimeout(w, 60);
+        }
+        else{
+            escribiendo = false;
+            finale();
+        }
+    }
+
+    w();
 }
+
 
 function finale(){
 for(let i=0;i<80;i++)heart();
