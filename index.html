@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feliz Cumpleaños ❤️</title>
+
 <style>
 html,body{
     margin:0;
@@ -15,42 +16,155 @@ html,body{
     background:radial-gradient(circle,#1a001f,#000);
     color:#fff;
 }
-#start,#intro{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:#000;z-index:20}
+
+/* PANTALLAS INICIO */
+#start,#intro{
+    position:fixed;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:#000;
+    z-index:50;
+}
+
+button{
+    padding:12px 22px;
+    border:none;
+    border-radius:12px;
+    background:pink;
+    font-weight:bold;
+    cursor:pointer;
+}
+
 #intro{display:none}
-button{padding:12px 22px;border:none;border-radius:12px;background:pink;font-weight:bold;cursor:pointer}
-.hidden{display:none}
+
+/* CONTENIDO */
 #content{
     display:none;
     position:fixed;
     inset:0;
-    width:100%;
-    height:100%;
-    background:radial-gradient(circle,#1a001f,#000);
-    overflow:hidden;
+    z-index:10;
 }
-.card{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.08);backdrop-filter:blur(10px);padding:18px;border-radius:18px;box-shadow:0 0 20px pink}
-.message{position:fixed;right:10px;bottom:10px;width:min(320px,88vw);height:200px;background:rgba(0,0,0,.75);border:2px solid pink;border-radius:14px;padding:10px;overflow:auto;display:none}
-.photo{position:fixed;width:110px;height:110px;border-radius:20px;object-fit:cover;opacity:.8;animation:fly linear infinite}
-@keyframes fly{
-0%{transform:translate(var(--x),110vh) rotate(0)}
-25%{transform:translate(calc(var(--x) + var(--dx)),70vh) rotate(90deg)}
-50%{transform:translate(calc(var(--x) - var(--dx)),40vh) rotate(180deg)}
-75%{transform:translate(calc(var(--x) + calc(var(--dx)/2)),5vh) rotate(270deg)}
-100%{transform:translate(var(--x),-150px) rotate(360deg)}
+
+/* TARJETA */
+.card{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(14px);
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0 0 25px rgba(255,105,180,.5);
+    z-index:15;
 }
-.heart,.txt{position:fixed;pointer-events:none}
-.heart{animation:fall 4s linear forwards}
-@keyframes fall{to{transform:translateY(110vh);opacity:0}}
-.txt{color:pink;animation:textUp 9s linear forwards}
-@keyframes textUp{from{transform:translateY(100vh);opacity:0}20%{opacity:1}to{transform:translateY(-150px);opacity:0}}
+
+/* MENSAJE */
+.message{
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    width:min(360px,90vw);
+    height:240px;
+
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(18px);
+
+    border:2px solid rgba(255,105,180,.6);
+    border-radius:16px;
+    padding:12px;
+
+    overflow:auto;
+    display:none;
+
+    color:#fff;
+    box-shadow:0 0 30px rgba(255,20,147,.3);
+
+    z-index:20;
+}
+
+/* FOTOS DETRÁS */
+.photo{
+    position:fixed;
+    width:120px;
+    height:120px;
+    border-radius:22px;
+    object-fit:cover;
+
+    opacity:0.55;
+    filter:blur(0.2px);
+
+    animation:float3D linear infinite;
+
+    z-index:1;
+}
+
+/* ANIMACIÓN FOTOS */
+@keyframes float3D{
+0%{transform:translate(var(--x),110vh) rotate(0deg) scale(0.8);}
+25%{transform:translate(calc(var(--x) + var(--dx)),70vh) rotate(90deg) scale(1);}
+50%{transform:translate(calc(var(--x) - var(--dx)),40vh) rotate(180deg) scale(1.1);}
+75%{transform:translate(calc(var(--x) + calc(var(--dx)/2)),10vh) rotate(270deg) scale(1);}
+100%{transform:translate(var(--x),-150px) rotate(360deg) scale(0.8);}
+}
+
+/* CORAZONES */
+.heart,.txt{
+    position:fixed;
+    pointer-events:none;
+    z-index:5;
+}
+
+.heart{
+    animation:fall 4s linear forwards;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh);opacity:0;}
+}
+
+.txt{
+    color:pink;
+    animation:textUp 9s linear forwards;
+    text-shadow:0 0 10px hotpink;
+}
+
+@keyframes textUp{
+from{transform:translateY(100vh);opacity:0}
+20%{opacity:1}
+to{transform:translateY(-150px);opacity:0}
+}
+
+/* COUNT Y SOBRE */
 #count{font-size:64px;color:pink}
 #envelope{font-size:90px;cursor:pointer;animation:bounce 1.5s infinite}
 @keyframes bounce{50%{transform:translateY(-10px)}}
-#final{display:none;position:fixed;inset:0;justify-content:center;align-items:center;font-size:52px;color:pink;text-shadow:0 0 20px hotpink;background:rgba(0,0,0,.2)}
+
+/* FINAL */
+#final{
+    display:none;
+    position:fixed;
+    inset:0;
+    justify-content:center;
+    align-items:center;
+    font-size:52px;
+    color:pink;
+    text-shadow:0 0 25px hotpink;
+    background:rgba(0,0,0,.3);
+    z-index:100;
+}
 </style>
 </head>
+
 <body>
-<audio id="music" loop><source src="music.mp3" type="audio/mp3"></audio>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mp3">
+</audio>
 
 <div id="start">
 <h1>💖 Hay algo que preparé especialmente para ti...</h1>
@@ -65,17 +179,22 @@ button{padding:12px 22px;border:none;border-radius:12px;background:pink;font-wei
 </div>
 
 <div id="content">
+
 <div class="card">
 <h1>🎂 Feliz Cumpleaños Leyla ❤️</h1>
 <button onclick="showMsg()">💌 Leer mi mensaje</button>
 </div>
+
 <div class="message" id="msg"></div>
+
 </div>
 
 <div id="final">LEYLA ❤️</div>
 
 <script>
+
 const frases=["💖 Te quiero","🌹 Feliz cumpleaños","✨ Eres especial","💕 Nunca cambies","🎂 Disfruta tu día"];
+
 const mensaje=`💖 Leyla... ✨🌹
 
 Hoy es un día muy especial porque es el dia que nacio la chica que jamas imagine querer tanto🎂💫
@@ -91,61 +210,99 @@ Incluso los pequeños detalles contigo se sienten importantes 💖💫
 
 Me alegra mucho haberte conocido 💕 de verdad 🌹
 
-No siempre sé expresar bien lo que siento 😅…
-pero hoy quiero intentarlo mejor 💭💖
+hubeira sido hermoso pasar tu dia tan especial contigo 😅…
+pero de igual manera disfrutalo si? 💭💖
 
 Te quiero muchísimo ❤️✨💖  
 y siempre voy a desear lo mejor para ti 🌷💫  
-hoy y siempre 💕✨`;
+hoy y siempre 💕✨
+`;
 
-function begin(){start.style.display='none';intro.style.display='flex';}
-function openEnvelope(){
- envelope.style.display='none';
- let n=3;count.textContent=n+" ❤️";
- let i=setInterval(()=>{
-   n--;
-   if(n>0)count.textContent=n+" ❤️";
-   else if(n===0)count.textContent="✨";
-   else{
-     clearInterval(i);
-     intro.style.display='none';
-     content.style.display='block';
-     music.play().catch(()=>{});
-   }
- },1000);
+function begin(){
+start.style.display='none';
+intro.style.display='flex';
 }
-function showMsg(){msg.style.display='block';type(mensaje,msg,55)}
-function type(t,e,s){e.innerHTML="";let i=0;(function w(){if(i<t.length){e.innerHTML+=(t[i]=="\n"?"<br>":t[i]);e.scrollTop=e.scrollHeight;i++;setTimeout(w,t[i-1]=='.'?180:s)}else finale()})()}
-function finale(){for(let i=0;i<80;i++)heart();setTimeout(()=>final.style.display='flex',1200)}
-function heart(){let h=document.createElement('div');h.className='heart';h.textContent=Math.random()>.5?'❤️':'💖';h.style.left=Math.random()*100+'vw';h.style.top='-20px';h.style.fontSize=(16+Math.random()*20)+'px';document.body.appendChild(h);setTimeout(()=>h.remove(),4000)}
-setInterval(heart,220);
-setInterval(()=>{let t=document.createElement('div');t.className='txt';t.textContent=frases[Math.floor(Math.random()*frases.length)];t.style.left=Math.random()*95+'vw';document.body.appendChild(t);setTimeout(()=>t.remove(),9000)},1500);
-const fotos = [
-    "foto1.jpeg",
-    "foto2.jpeg",
-    "foto3.jpeg",
-    "foto4.jpeg",
-    "foto5.jpeg",
-    "foto6.jpeg",
-    "foto7.jpeg",
-    "foto8.jpeg",
-    "foto9.jpeg",
-    "foto10.jpeg"
+
+function openEnvelope(){
+envelope.style.display='none';
+let n=3;
+count.textContent=n+" ❤️";
+
+let i=setInterval(()=>{
+n--;
+if(n>0) count.textContent=n+" ❤️";
+else if(n===0) count.textContent="✨";
+else{
+clearInterval(i);
+intro.style.display='none';
+content.style.display='block';
+music.play().catch(()=>{});
+}
+},1000);
+}
+
+function showMsg(){
+msg.style.display='block';
+type(mensaje,msg,55);
+}
+
+function type(t,e,s){
+e.innerHTML="";
+let i=0;
+(function w(){
+if(i<t.length){
+e.innerHTML += (t[i]=="\n"?"<br>":t[i]);
+e.scrollTop=e.scrollHeight;
+i++;
+setTimeout(w,60);
+}else finale();
+})();
+}
+
+function finale(){
+for(let i=0;i<80;i++)heart();
+setTimeout(()=>final.style.display='flex',1200);
+}
+
+function heart(){
+let h=document.createElement('div');
+h.className='heart';
+h.textContent=Math.random()>.5?'❤️':'💖';
+h.style.left=Math.random()*100+'vw';
+h.style.top='-20px';
+h.style.fontSize=(16+Math.random()*20)+'px';
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),4000);
+}
+
+setInterval(heart,250);
+
+setInterval(()=>{
+let t=document.createElement('div');
+t.className='txt';
+t.textContent=frases[Math.floor(Math.random()*frases.length)];
+t.style.left=Math.random()*95+'vw';
+document.body.appendChild(t);
+setTimeout(()=>t.remove(),9000);
+},1800);
+
+/* FOTOS */
+const fotos=[
+"foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg",
+"foto6.jpeg","foto7.jpeg","foto8.jpeg","foto9.jpeg","foto10.jpeg"
 ];
 
 for(let i=0;i<20;i++){
-
-    let p=document.createElement("img");
-    p.className="photo";
-
-    p.src = fotos[Math.floor(Math.random()*fotos.length)];
-
-    p.style.setProperty("--x",Math.random()*90+"vw");
-    p.style.setProperty("--dx",(20+Math.random()*80)+"px");
-    p.style.animationDuration=(10+Math.random()*10)+"s";
-
-    document.body.appendChild(p);
+let p=document.createElement("img");
+p.className="photo";
+p.src=fotos[Math.floor(Math.random()*fotos.length)];
+p.style.setProperty("--x",Math.random()*90+"vw");
+p.style.setProperty("--dx",(20+Math.random()*80)+"px");
+p.style.animationDuration=(10+Math.random()*10)+"s";
+document.body.appendChild(p);
 }
+
 </script>
+
 </body>
 </html>
